@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+<h1>strona ministertwa</h1>
+<hr>
+<h2>wprowadz nowy przedmiot do szkół</h2>
+<form name="subject" target="_self" action="subjects/ministry/insert" method="post" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded" >
+  <fieldset>
+    nazwa przedmiotu: <input type="text" name="name"><br>
+    liczba ects: <input type="number" name="ects"><br>
+    <button type="submit">zatwierdz nowy przedmiot</button>
+  </fieldset>
+</form>
+<hr>
+sprawdz na placowce przedmioty:
+<br>
+<a href="/subjects/ministry" target="_blank">ministerstwo</a><br>
+<a href="/subjects/schoolOne" target="_blank">szkoła pierwsza</a><br>
+<a href="/subjects/schoolTwo" target="_blank">szkoła druga</a><br>
+</body>
+</html>
