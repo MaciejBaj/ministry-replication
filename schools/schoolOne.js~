@@ -1,8 +1,6 @@
 var mongoose = require('mongoose');
 var subjectModel = require('../models/subject');
 var mongoDbAdressess = require('../mongoDBconfig');
-var json2html = require('json2html');
-
 var schoolOneConnection = mongoose.createConnection('mongodb://' + mongoDbAdressess.ministry + ',' + mongoDbAdressess.schoolOne + '/education?w=0&readPreference=secondary');
 var SubjectsCollection = schoolOneConnection.model('Subject', subjectModel);
 
@@ -12,8 +10,8 @@ module.exports = function(app) {
       if (err) {
         return res.status(500).send(err);
       }
-	
-      return res.status(200).send(json2html.render(subjects));
+	res.header('Content-Type', 'application/x-shunter+json');
+      return res.status(200).json(subjects);
     });
 
   });

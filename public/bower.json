@@ -1,0 +1,25 @@
+{
+  "name": "ministry-app",
+  "version": "0.0.0",
+  "homepage": "https://github.com/MaciejBaj/ministry-replication",
+  "authors": [
+    "MaciejBaj <macie.baj@gmail.com>"
+  ],
+  "description": "mongo replication test",
+  "main": "index.html",
+  "keywords": [
+    "mongo",
+    "replication"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "json.human": "https://github.com/marianoguerra/json.human.js"
+  }
+}

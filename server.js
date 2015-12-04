@@ -13,12 +13,14 @@ app.use(express.static('public'));
 require('./schools/schoolOne')(app);
 require('./schools/schoolTwo')(app);
 require('./ministry/ministry')(app);
+require('./administration/administration')(app);
 
 mongoose.connection.on('error', function(err) {
     console.error('MongoDB connection error: ' + err);
     process.exit(-1);
   }
 );
+
 
 server.listen(PORT, function () {
   console.log('Express server listening on %d', PORT);
