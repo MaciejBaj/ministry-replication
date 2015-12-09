@@ -3,6 +3,7 @@ var subjectModel = require('../models/subject');
 var mongoDbAdressess = require('../mongoDBconfig');
 var schoolOneConnection = mongoose.createConnection('mongodb://' + mongoDbAdressess.ministry + '/education');
 var SubjectsCollection = schoolOneConnection.model('Subject', subjectModel);
+var json2html = require('json2html');
 
 module.exports = function(app) {
 
