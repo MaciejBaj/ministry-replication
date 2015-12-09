@@ -18,7 +18,7 @@ module.exports = function(app) {
         return res.status(500).send(err);
       }
 
-      return res.status(200).render(json2html.render(subjects));
+      return res.status(200).send(json2html.render(subjects));
     });
 
   });
