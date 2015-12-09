@@ -11,7 +11,7 @@ module.exports = function(app) {
     }
   });
 
-  app.route('/kill/:id').post(function(req, res) {
+  app.route('/kill/:id').get(function(req, res) {
     var schoolId = req.params.id;
     var schoolToKill = _.remove(app.schools, {'id': schoolId});
     if(!schoolToKill) {

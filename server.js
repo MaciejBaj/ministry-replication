@@ -11,6 +11,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static('public'));
 
 require('./ministry/ministry')(app);
+require('./schools/dynamicSchoolConnect')(app);
 require('./administration/administration')(app);
 
 mongoose.connection.on('error', function(err) {
