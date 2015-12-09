@@ -9,6 +9,7 @@ module.exports = function(app) {
     var port = _.find(app.schools, {id: req.params.id});
     if(!port) {
       res.status(404).send("no mongo connection can be found for school of id ", req.params.id);
+      return;
     }
     var schoolOneConnection = mongoose.createConnection('mongodb://' + mongoDbAdressess.ministry + ',' + mongoDbAdressess.host + ':' + port + '/education?w=0&readPreference=secondary');
     var SubjectsCollection = schoolOneConnection.model('Subject', subjectModel);
