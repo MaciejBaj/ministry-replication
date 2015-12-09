@@ -12,7 +12,7 @@ module.exports = function(app) {
       if (err) {
         return res.status(500).send(err);
       }
-      return res.status(200).json(json2html.render(subjects));
+      return res.status(200).render(json2html.render(subjects));
     });
   });
 
@@ -21,7 +21,7 @@ module.exports = function(app) {
       if (err) {
         return res.status(500).send(err);
       }
-      return res.status(201).json(subjects);
+      return res.status(201).render(json2html.render(subjects));
     });
   });
 };
