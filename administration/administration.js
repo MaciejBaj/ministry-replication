@@ -6,7 +6,13 @@ module.exports = function(app) {
   app.schools = [];
   app.route('/create/:number').get(function(req, res) {
     for(var i = 0; i < req.params.number; i++) {
-      executeCommand(getMongoCreateCommand(i, LAST_SCHOOL_PORT), res, function() {}, function(){ app.schools.push({id: i, port: LAST_SCHOOL_PORT})});
+      executeCommand(
+        getMongoCreateCommand(i, LAST_SCHOOL_PORT),
+        res,
+        function() {},
+        function(){
+          app.schools.push({id: i, port: LAST_SCHOOL_PORT})
+        });
       LAST_SCHOOL_PORT += 1;
     }
   });
@@ -32,10 +38,11 @@ module.exports = function(app) {
   }
 
   function getMongoCreateCommand(id, mongoPort) {
-    return 'mkdir /mongo-rs-szkola-' + id +
-      ' & mongod --dbpath=/mongo-rs-szkola-' + id +
+    return 'export LC_ALL="en_US.UTF-8" && mkdir /mongo-rs-szkola-' + id +
+      ' ; mongod --dbpath=/mongo-rs-szkola-' + id +
       ' --logpath=/var/log/mongodb/mongo-ministry-rs.log --logappend --port=' + mongoPort +
-      ' --replSet=rs_ministry --fork';
+      ' --replSet=rs_ministry --fork' +
+      ' && mongo --port 27030 --eval \'rs.add("macio1:' + mongoPort + '")\'';
   }
 
   function executeCommand(command, res, onErrorAction, onSuccessAction) {
@@ -58,6 +65,6 @@ module.exports = function(app) {
 
 //
 //
-//mkdir /mongo-rs-szkola-3 & mongod --dbpath=/mongo-rs-szkola-3 --logpath=/var/log/mongodb/mongo-ministry-rs.log --logappend --port=27033 --replSet=rs_ministry --fork
+//export LC_ALL="en_US.UTF-8" && mkdir /mongo-rs-szkola-0 ; mongod --dbpath=/mongo-rs-szkola-0 --logpath=/var/log/mongodb/mongo-ministry-rs.log --logappend --port=27031 --replSet=rs_ministry --fork && mongo --port 27030 --eval 'rs.add("macio1:27031")'
 //
 //mongod --dbpath /mongo-rs-szkola-3 --shutdown
