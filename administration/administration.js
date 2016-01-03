@@ -1,4 +1,5 @@
 var exec = require('child_process').exec;
+var json2html = require('json2html');
 var _ = require('lodash');
 
 var LAST_SCHOOL_PORT = 27031;
@@ -59,7 +60,8 @@ module.exports = function(app) {
       "mongo --port 27030 --eval 'printjson(rs.status())'",
       res,
       function(error) { res.status(500).send(error) },
-      function(msg){ res.send(msg); });
+      function(msg){ res.send( json2html.render(msg)); });
+
   });
 
   function getMongoKillCommand(id) {
