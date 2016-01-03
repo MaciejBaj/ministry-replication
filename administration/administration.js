@@ -17,10 +17,11 @@ module.exports = function(app) {
     }
   });
 
-  app.route('/createWithId/:id').get(function(req, res) {
+    app.route('/createWithId/:id').get(function(req, res) {
     var id = req.params.id;
-    if(!id || typeof id !== Number) {
+    if(!id) {
       res.status(500).send("wrong school id ", id);
+      return;
     }
     var port = LAST_SCHOOL_PORT + id;
     executeCommand(
