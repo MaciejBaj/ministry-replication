@@ -41,13 +41,25 @@ module.exports = function(app) {
       res.status(404).send("no school of id ", schoolId, " found");
       return;
     }
-    executeCommand(getMongoKillCommand(schoolId), res, function(error) { app.schools.push(schoolToKill) }, function(){});
+    executeCommand(
+      getMongoKillCommand(schoolId),
+      res,
+      function(error) { app.schools.push(schoolToKill) },
+      function(msg){ res.send(msg); });
   });
 
-  app.route('/killAll').post(function(req, res) {
+  app.route('/killAll').get(function(req, res) {
     app.schools.forEach(function(school) {
-      executeCommand(getMongoKillCommand(school.id), res, function(error) { app.schools.push(school) }, function(){});
+      executeCommand(getMongoKillCommand(school.id), res, function(error) { app.schools.push(school) }, function(msg){ res.send(msg); });
     });
+  });
+
+  app.route('/status').get(function(req, res) {
+    executeCommand(
+      "mongo --port 27030 --eval 'printjson(rs.status())'",
+      res,
+      function(error) { res.status(500).send(error) },
+      function(msg){ res.send(msg); });
   });
 
   function getMongoKillCommand(id) {
