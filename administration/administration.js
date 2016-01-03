@@ -10,9 +10,11 @@ module.exports = function(app) {
       executeCommand(
         getMongoCreateCommand(i, LAST_SCHOOL_PORT),
         res,
-        function() {},
-        function(){
-          app.schools.push({id: i, port: LAST_SCHOOL_PORT})
+        function(msg){ res.send(msg); },
+        function(err){
+          app.schools.push({id: i, port: LAST_SCHOOL_PORT});
+          res.status(500).send(err);
+
         });
       LAST_SCHOOL_PORT += 1;
     }
@@ -30,8 +32,9 @@ module.exports = function(app) {
       getMongoCreateCommand(id, port),
       res,
       function(msg){ res.send(msg); },
-      function(){
-        app.schools.push({id: id, port: port})
+      function(err){
+        app.schools.push({id: id, port: port});
+        res.status(500).send(err);
       });
   });
 
