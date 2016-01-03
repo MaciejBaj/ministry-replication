@@ -17,10 +17,25 @@ module.exports = function(app) {
     }
   });
 
+  app.route('/createWithId/:id').get(function(req, res) {
+    var id = req.params.id;
+    if(!id || typeof id !== Number) {
+      res.status(500).send("wrong school id ", id);
+    }
+    var port = LAST_SCHOOL_PORT + id;
+    executeCommand(
+      getMongoCreateCommand(id, port),
+      res,
+      function() {},
+      function(){
+        app.schools.push({id: id, port: port})
+      });
+  });
+
   app.route('/kill/:id').get(function(req, res) {
     var schoolId = req.params.id;
     var schoolToKill = _.remove(app.schools, {'id': schoolId});
-    if(!schoolToKill) {
+    if(!schoolId) {
       res.status(404).send("no school of id ", schoolId, " found");
       return;
     }
