@@ -9,8 +9,7 @@ var LAST_SCHOOL_PORT = 27031;
 
 module.exports = function(app) {
   app.route('/school/:id').get(function(req, res) {
-    var port = _.find(app.schools, {id: req.params.id});
-    port = port || LAST_SCHOOL_PORT + parseInt(req.params.id);
+    var port = LAST_SCHOOL_PORT + parseInt(req.params.id);
     console.log("found school at port ", port);
     exec("lsof -i :" + port, function(error, stdout, stderr) {
       if (stdout && !stderr) {
