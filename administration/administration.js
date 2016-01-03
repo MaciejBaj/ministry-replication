@@ -23,7 +23,8 @@ module.exports = function(app) {
       res.status(500).send("wrong school id ", id);
       return;
     }
-    var port = LAST_SCHOOL_PORT + id;
+    var port = LAST_SCHOOL_PORT + parseInt(id);
+    console.log("creating school on port: ", port);
     executeCommand(
       getMongoCreateCommand(id, port),
       res,
