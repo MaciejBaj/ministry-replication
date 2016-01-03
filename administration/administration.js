@@ -29,7 +29,7 @@ module.exports = function(app) {
     executeCommand(
       getMongoCreateCommand(id, port),
       res,
-      function() {},
+      function(msg){ res.send(msg); },
       function(){
         app.schools.push({id: id, port: port})
       });
@@ -73,7 +73,7 @@ module.exports = function(app) {
       ' ; mongod --dbpath=/mongo-rs-szkola-' + id +
       ' --logpath=/var/log/mongodb/mongo-ministry-rs.log --logappend --port=' + mongoPort +
       ' --replSet=rs_ministry --fork' +
-      ' && mongo --port 27030 --eval \'rs.add("macio1:' + mongoPort + '")\'';
+      ' && mongo --port 27030 --eval \'printjson(rs.add("macio1:' + mongoPort + '"))\'';
   }
 
   function executeCommand(command, res, onErrorAction, onSuccessAction) {
